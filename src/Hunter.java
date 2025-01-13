@@ -22,6 +22,13 @@ public class Hunter {
         gold = startingGold;
     }
 
+    //added overloaded constructor for test mode
+    public Hunter(String hunterName, int startingGold, String[] kit) {
+        this.hunterName = hunterName;
+        gold = startingGold;
+        this.kit = new String[]{"Water", "Rope", "Machete", "Horse", "Boat"};
+    }
+
     //Accessors
     public String getHunterName() {
         return hunterName;
