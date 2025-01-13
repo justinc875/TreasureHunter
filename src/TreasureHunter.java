@@ -16,6 +16,7 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
+    private boolean testMode;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -25,6 +26,7 @@ public class TreasureHunter {
         currentTown = null;
         hunter = null;
         hardMode = false;
+        testMode = false;
     }
 
     /**
@@ -48,10 +50,14 @@ public class TreasureHunter {
         // set hunter instance variable
         hunter = new Hunter(name, 20);
 
-        System.out.print("Hard mode? (y/n): ");
+        System.out.print("Hard mode? (y/n/test): ");
         String hard = SCANNER.nextLine().toLowerCase();
         if (hard.equals("y")) {
             hardMode = true;
+        } else if (hard.equals("test")) {
+            testMode = true;
+            hunter = new Hunter(name, 100);
+
         }
     }
 
@@ -84,6 +90,7 @@ public class TreasureHunter {
         // constructor for Town, but this illustrates another way to associate
         // an object with an object of a different class
         currentTown.hunterArrives(hunter);
+
     }
 
     /**
