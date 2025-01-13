@@ -147,9 +147,9 @@ public class Hunter {
      * @return A string representation of the hunter.
      */
     public String infoString() {
-        String str = hunterName + " has " + gold + " gold";
+        String str = hunterName + " has " + Colors.YELLOW + gold + Colors.RESET + " gold";
         if (!kitIsEmpty()) {
-            str += " and " + getInventory();
+            str += " and " + Colors.PURPLE + getInventory() + Colors.RESET;
         }
         return str;
     }
