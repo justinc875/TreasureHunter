@@ -11,6 +11,8 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private boolean testTown;
+    private boolean lose;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -27,6 +29,11 @@ public class Town {
         hunter = null;
         printMessage = "";
 
+        //set the conditions for the test town where the chance of brawl is 100%
+        if(toughness == 1) {
+            testTown = true;
+        }
+
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
     }
@@ -37,6 +44,10 @@ public class Town {
 
     public String getLatestNews() {
         return printMessage;
+    }
+
+    public boolean getLose() {
+        return lose;
     }
 
     /**
@@ -93,7 +104,11 @@ public class Town {
         double noTroubleChance;
         if (toughTown) {
             noTroubleChance = 0.66;
-        } else {
+        }
+        if (testTown) {
+            noTroubleChance = 1;
+        }
+        else {
             noTroubleChance = 0.33;
         }
         if (Math.random() > noTroubleChance) {
@@ -105,10 +120,17 @@ public class Town {
                 printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
                 printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
                 hunter.changeGold(goldDiff);
-            } else {
+                if(hunter.isLose()) {
+                    lose = true;
+                }
+            }
+            else {
                 printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
                 printMessage += "\nYou lost the brawl and pay " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
                 hunter.changeGold(-goldDiff);
+                if(hunter.isLose()) {
+                    lose = true;
+                }
             }
         }
     }

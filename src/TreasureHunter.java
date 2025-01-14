@@ -17,7 +17,7 @@ public class TreasureHunter {
     private Hunter hunter;
     private boolean hardMode;
     private boolean testMode;
-
+    private boolean testLose;
     /**
      * Constructs the Treasure Hunter game.
      */
@@ -27,6 +27,7 @@ public class TreasureHunter {
         hunter = null;
         hardMode = false;
         testMode = false;
+        testLose = false;
     }
 
     /**
@@ -50,14 +51,16 @@ public class TreasureHunter {
         // set hunter instance variable
         hunter = new Hunter(name, 20);
 
-        System.out.print("Hard mode? (y/n/test): ");
+        System.out.print("Hard mode? (y/n/test/lose): ");
         String hard = SCANNER.nextLine().toLowerCase();
         if (hard.equals("y")) {
             hardMode = true;
         } else if (hard.equals("test")) {
             testMode = true;
             hunter = new Hunter(name, 100,true);
-
+        } else if (hard.equals("lose")) {
+            hunter = new Hunter(name,10);
+            testLose = true;
         }
     }
 
@@ -73,6 +76,9 @@ public class TreasureHunter {
 
             // and the town is "tougher"
             toughness = 0.75;
+        }
+        if (testLose) {
+            toughness = 1;
         }
 
         // note that we don't need to access the Shop object
@@ -100,7 +106,7 @@ public class TreasureHunter {
      */
     private void showMenu() {
         String choice = "";
-        while (!choice.equals("x")) {
+        while (!choice.equals("x") && !currentTown.getLose()) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -117,6 +123,7 @@ public class TreasureHunter {
             choice = SCANNER.nextLine().toLowerCase();
             processChoice(choice);
         }
+        System.out.println("game over");
     }
 
     /**

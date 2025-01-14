@@ -9,6 +9,7 @@ public class Hunter {
     private String hunterName;
     private String[] kit;
     private int gold;
+    private boolean lose;
 
     /**
      * The base constructor of a Hunter assigns the name to the hunter and an empty kit.
@@ -20,6 +21,7 @@ public class Hunter {
         this.hunterName = hunterName;
         kit = new String[5]; // only 5 possible items can be stored in kit
         gold = startingGold;
+        lose = false;
     }
 
     //added overloaded constructor for test mode
@@ -29,6 +31,11 @@ public class Hunter {
         if(test) {
             this.kit = new String[]{"Water", "Rope", "Machete", "Horse", "Boat"};
         }
+        lose = false;
+    }
+
+    public boolean isLose() {
+        return lose;
     }
 
     //Accessors
@@ -44,7 +51,7 @@ public class Hunter {
     public void changeGold(int modifier) {
         gold += modifier;
         if (gold < 0) {
-            gold = 0;
+            lose = true;
         }
     }
 
