@@ -21,6 +21,8 @@ public class Shop {
     // instance variables
     private double markdown;
     private Hunter customer;
+    private boolean samuraiMode;
+    private boolean samurai;
 
     /**
      * The Shop constructor takes in a markdown value and leaves customer null until one enters the shop.
@@ -41,6 +43,9 @@ public class Shop {
      */
     public String enter(Hunter hunter, String buyOrSell) {
         customer = hunter;
+        if (customer.isSamurai()) {
+            samuraiMode = true;
+        }
         if (buyOrSell.equals("b")) {
             System.out.println("Welcome to the shop! We have the finest wares in town.");
             System.out.println("Currently we have the following items:");
@@ -48,14 +53,17 @@ public class Shop {
             System.out.print("What're you lookin' to buy? ");
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, true);
-            if (cost == 0) {
-                System.out.println("We ain't got none of those.");
-            } else {
+            if (cost > 0 || samuraiMode) {
                 System.out.print("It'll cost you " + Colors.YELLOW + cost + Colors.RESET + " gold. Buy it (y/n)? ");
                 String option = SCANNER.nextLine().toLowerCase();
                 if (option.equals("y")) {
                     buyItem(item);
+                    if (hunter.getInventory().contains("sword")) {
+                        samurai = true;
+                    }
                 }
+            } else if (cost == 0) {
+                System.out.println("We ain't got none of those.");
             }
         } else {
             System.out.println("What're you lookin' to sell? ");
@@ -88,6 +96,9 @@ public class Shop {
         str += "Horse: " + Colors.YELLOW + HORSE_COST + Colors.RESET + " gold\n";
         str += "Boat: " + Colors.YELLOW + BOAT_COST + Colors.RESET + " gold\n";
         str += "Boots: " + Colors.YELLOW + BOOTS_COST + Colors.RESET + " gold\n";
+        if (customer.isSamurai()) {
+            str += "Sword: " + Colors.YELLOW + "0" + Colors.RESET + " gold\n";
+        }
         return str;
     }
 

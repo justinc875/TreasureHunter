@@ -10,6 +10,7 @@ public class Hunter {
     private String[] kit;
     private int gold;
     private boolean lose;
+    private boolean samuraiMode = false;
 
     /**
      * The base constructor of a Hunter assigns the name to the hunter and an empty kit.
@@ -19,7 +20,7 @@ public class Hunter {
      */
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
-        kit = new String[6]; // only 6 possible items can be stored in kit
+        kit = new String[8]; // only 8 possible items can be stored in kit
         gold = startingGold;
         lose = false;
     }
@@ -34,14 +35,28 @@ public class Hunter {
         lose = false;
     }
 
+    //added overloaded constructor for samurai mode
+    public Hunter(String hunterName, boolean samuraiMode, int startingGold) {
+        this.hunterName = hunterName;
+        kit = new String[8]; // only 8 possible items can be stored in kit
+        gold = startingGold;
+        samuraiMode = true;
+        lose = false;
+    }
+
+    //Accessors
     public boolean isLose() {
         return lose;
     }
 
-    //Accessors
     public String getHunterName() {
         return hunterName;
     }
+
+    public boolean isSamurai() {
+        return samuraiMode;
+    }
+
 
     /**
      * Updates the amount of gold the hunter has.

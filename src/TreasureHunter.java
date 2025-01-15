@@ -16,8 +16,10 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
+    private boolean easyMode;
     private boolean testMode;
     private boolean testLose;
+    private boolean samuraiMode;
     /**
      * Constructs the Treasure Hunter game.
      */
@@ -26,8 +28,10 @@ public class TreasureHunter {
         currentTown = null;
         hunter = null;
         hardMode = false;
+        easyMode = false;
         testMode = false;
         testLose = false;
+        samuraiMode = false;
     }
 
     /**
@@ -51,16 +55,22 @@ public class TreasureHunter {
         // set hunter instance variable
         hunter = new Hunter(name, 20);
 
-        System.out.print("Hard mode? (y/n/test/lose): ");
+        System.out.print("Hard mode? (e/n/h): ");
         String hard = SCANNER.nextLine().toLowerCase();
-        if (hard.equals("y")) {
+        if (hard.equals("h")) {
             hardMode = true;
+        } else if (hard.equals("e")) {
+            easyMode = true;
+            hunter = new Hunter (name, 40);
         } else if (hard.equals("test")) {
             testMode = true;
             hunter = new Hunter(name, 100,true);
         } else if (hard.equals("lose")) {
             hunter = new Hunter(name,10);
             testLose = true;
+        } else if (hard.equals("s")) {
+            hunter = new Hunter (name, true, 20);
+            samuraiMode = true;
         }
     }
 
@@ -68,17 +78,26 @@ public class TreasureHunter {
      * Creates a new town and adds the Hunter to it.
      */
     private void enterTown() {
-        double markdown = 0.25;
+        double markdown = 0.5;
         double toughness = 0.4;
         if (hardMode) {
-            // in hard mode, you get less money back when you sell items
-            markdown = 0.5;
+            //in hard mode, you get less money back when you sell items
+            markdown = 0.25;
 
             // and the town is "tougher"
             toughness = 0.75;
         }
+        if (easyMode) {
+            //in easy mode, you get the full amount back when you sell items
+            markdown = 1;
+            //and the town is less "tough"
+            toughness = 0.3;
+        }
         if (testLose) {
             toughness = 1;
+        }
+        if (samuraiMode) {
+            toughness = 0;
         }
 
         // note that we don't need to access the Shop object

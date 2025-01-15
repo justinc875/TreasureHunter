@@ -12,6 +12,7 @@ public class Town {
     private String printMessage;
     private boolean toughTown;
     private boolean testTown;
+    private boolean easyTown;
     private boolean lose;
 
     /**
@@ -30,8 +31,11 @@ public class Town {
         printMessage = "";
 
         //set the conditions for the test town where the chance of brawl is 100%
-        if(toughness == 1) {
+        if (toughness == 1) {
             testTown = true;
+        }
+        if (toughness == 0.3) {
+            easyTown = true;
         }
 
         // higher toughness = more likely to be a tough town
@@ -168,6 +172,10 @@ public class Town {
      */
     private boolean checkItemBreak() {
         double rand = Math.random();
-        return (rand < 0.5);
+        if (easyTown) {
+            return false;
+        } else {
+            return (rand < 0.5);
+        }
     }
 }
