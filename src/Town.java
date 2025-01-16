@@ -14,6 +14,8 @@ public class Town {
     private boolean testTown;
     private boolean easyTown;
     private boolean lose;
+    private String treasure;
+    //private String[] treasureList = {"crown", "dust", "gem", "trophy"};
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -52,6 +54,10 @@ public class Town {
 
     public boolean getLose() {
         return lose;
+    }
+
+    public String getTreasure() {
+        return treasure;
     }
 
     /**
@@ -177,5 +183,9 @@ public class Town {
         } else {
             return (rand < 0.5);
         }
+    }
+
+    public void searchTreasure() {
+        System.out.println("You found a");
     }
 }

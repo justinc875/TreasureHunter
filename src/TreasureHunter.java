@@ -20,6 +20,8 @@ public class TreasureHunter {
     private boolean testMode;
     private boolean testLose;
     private boolean samuraiMode;
+    private String treasure;
+    private int treasureCount;
     /**
      * Constructs the Treasure Hunter game.
      */
@@ -41,6 +43,11 @@ public class TreasureHunter {
         welcomePlayer();
         enterTown();
         showMenu();
+    }
+
+
+    public String getTreasure() {
+        return treasure;
     }
 
     /**
@@ -116,7 +123,22 @@ public class TreasureHunter {
         // an object with an object of a different class
         currentTown.hunterArrives(hunter);
 
+        //set a random treasure for the town;
+        treasureCount = 0;
+        if (treasureCount < 1) {
+            int random = (int) (Math.random() * 4) + 1;
+            if (random == 1) {
+                treasure = "crown";
+            } else if (random == 2) {
+                treasure = "gem";
+            } else if (random == 3) {
+                treasure = "trophy";
+            } else {
+                treasure = "dust";
+            }
+        }
     }
+
 
     /**
      * Displays the menu and receives the choice from the user.<p>
@@ -136,6 +158,7 @@ public class TreasureHunter {
             System.out.println("(E)xplore surrounding terrain.");
             System.out.println("(M)ove on to a different town.");
             System.out.println("(L)ook for trouble!");
+            System.out.println("(H)unt for treasure");
             System.out.println("Give up the hunt and e(X)it.");
             System.out.println();
             System.out.print("What's your next move? ");
@@ -162,6 +185,15 @@ public class TreasureHunter {
             }
         } else if (choice.equals("l")) {
             currentTown.lookForTrouble();
+        } else if (choice.equals("h")) {
+            if(treasureCount >= 1) {
+                System.out.println("You've already searched this town");
+            } else {
+                System.out.println("You found a " + treasure);
+                hunter.addTreasure(treasure);
+                System.out.println(hunter.treasureInfo());
+                treasureCount++;
+            }
         } else if (choice.equals("x")) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
         } else {
