@@ -1,3 +1,5 @@
+import java.sql.SQLOutput;
+
 /**
  * The Town Class is where it all happens.
  * The Town is designed to manage all the things a Hunter can do in town.
@@ -14,6 +16,7 @@ public class Town {
     private boolean testTown;
     private boolean easyTown;
     private boolean lose;
+    private boolean playerDug;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -83,6 +86,7 @@ public class Town {
                 hunter.removeItemFromKit(item);
                 printMessage += "\nUnfortunately, you lost your " + Colors.PURPLE + item + Colors.RESET;
             }
+            playerDug = false;
             return true;
         }
 
@@ -115,27 +119,33 @@ public class Town {
         else {
             noTroubleChance = 0.33;
         }
-        if (Math.random() > noTroubleChance) {
-            printMessage = "You couldn't find any trouble";
-        } else {
-            printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + Colors.RESET;
+        if (Math.random() < noTroubleChance) {
             int goldDiff = (int) (Math.random() * 10) + 1;
-            if (Math.random() > noTroubleChance) {
-                printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
-                printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
+            if (hunter.getInventory().contains("sword")) {
+                printMessage += "\nThe brawler, seeing your sword, realizes he picked a losing fight and gives you his gold";
                 hunter.changeGold(goldDiff);
-                if(hunter.isLose()) {
-                    lose = true;
+                printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
+            } else {
+                printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + Colors.RESET;
+                if (Math.random() > noTroubleChance) {
+                    printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
+                    printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
+                    hunter.changeGold(goldDiff);
+                    if(hunter.isLose()) {
+                        lose = true;
+                    }
+                }
+                else {
+                    printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
+                    printMessage += "\nYou lost the brawl and pay " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
+                    hunter.changeGold(-goldDiff);
+                    if(hunter.isLose()) {
+                        lose = true;
+                    }
                 }
             }
-            else {
-                printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
-                printMessage += "\nYou lost the brawl and pay " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
-                hunter.changeGold(-goldDiff);
-                if(hunter.isLose()) {
-                    lose = true;
-                }
-            }
+        } else {
+            printMessage = "You couldn't find any trouble";
         }
     }
 
@@ -164,6 +174,25 @@ public class Town {
             return new Terrain("Marsh", "Boots");
         }
     }
+
+    public void digForGold() {
+        if (hunter.getInventory().contains("shovel")) {
+            if (playerDug) {
+                System.out.println("You already dug for gold in this town.");
+            } else {
+                if (((int) (Math.random() * 2) + 1) < 1) {
+                    int goldDiff = (int) (Math.random() * 20) + 1;
+                    System.out.println("You dug up " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.");
+                } else {
+                    System.out.println("You dug but only found dirt");
+                }
+                playerDug = true;
+            }
+        } else {
+            System.out.println("You can't dig for gold without a shovel");
+        }
+    }
+
 
     /**
      * Determines whether a used item has broken.

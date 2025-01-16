@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 /**
@@ -21,7 +22,6 @@ public class Shop {
     // instance variables
     private double markdown;
     private Hunter customer;
-    private boolean samuraiMode;
     private boolean samurai;
 
     /**
@@ -44,7 +44,7 @@ public class Shop {
     public String enter(Hunter hunter, String buyOrSell) {
         customer = hunter;
         if (customer.isSamurai()) {
-            samuraiMode = true;
+            samurai = true;
         }
         if (buyOrSell.equals("b")) {
             System.out.println("Welcome to the shop! We have the finest wares in town.");
@@ -53,13 +53,15 @@ public class Shop {
             System.out.print("What're you lookin' to buy? ");
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, true);
-            if (cost > 0 || samuraiMode) {
-                System.out.print("It'll cost you " + Colors.YELLOW + cost + Colors.RESET + " gold. Buy it (y/n)? ");
-                String option = SCANNER.nextLine().toLowerCase();
-                if (option.equals("y")) {
+            if (cost > 0 || samurai) {
+                if (hunter.getInventory().contains("sword")) {
+                    System.out.println("The sword intimidates the shopkeeper and he gives you the item freely");
                     buyItem(item);
-                    if (hunter.getInventory().contains("sword")) {
-                        samurai = true;
+                } else {
+                    System.out.print("It'll cost you " + Colors.YELLOW + cost + Colors.RESET + " gold. Buy it (y/n)? ");
+                    String option = SCANNER.nextLine().toLowerCase();
+                    if (option.equals("y")) {
+                        buyItem(item);
                     }
                 }
             } else if (cost == 0) {
@@ -96,6 +98,7 @@ public class Shop {
         str += "Horse: " + Colors.YELLOW + HORSE_COST + Colors.RESET + " gold\n";
         str += "Boat: " + Colors.YELLOW + BOAT_COST + Colors.RESET + " gold\n";
         str += "Boots: " + Colors.YELLOW + BOOTS_COST + Colors.RESET + " gold\n";
+        str += "Shovel: " + Colors.YELLOW + BOOTS_COST + Colors.RESET + " gold\n";
         if (customer.isSamurai()) {
             str += "Sword: " + Colors.YELLOW + "0" + Colors.RESET + " gold\n";
         }
@@ -163,6 +166,8 @@ public class Shop {
         } else if (item.equals("boat")) {
             return BOAT_COST;
         } else if (item.equals("boots")) {
+            return BOOTS_COST;
+        } else if (item.equals("shovel")) {
             return BOOTS_COST;
         } else {
             return 0;
