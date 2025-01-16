@@ -1,5 +1,3 @@
-import java.sql.SQLOutput;
-
 /**
  * The Town Class is where it all happens.
  * The Town is designed to manage all the things a Hunter can do in town.
@@ -16,6 +14,8 @@ public class Town {
     private boolean testTown;
     private boolean easyTown;
     private boolean lose;
+    private String treasure;
+    //private String[] treasureList = {"crown", "dust", "gem", "trophy"};
     private boolean playerDug;
 
     /**
@@ -55,6 +55,10 @@ public class Town {
 
     public boolean getLose() {
         return lose;
+    }
+
+    public String getTreasure() {
+        return treasure;
     }
 
     /**
@@ -206,5 +210,9 @@ public class Town {
         } else {
             return (rand < 0.5);
         }
+    }
+
+    public void searchTreasure() {
+        System.out.println("You found a");
     }
 }

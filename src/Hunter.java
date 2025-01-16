@@ -10,7 +10,8 @@ public class Hunter {
     private String[] kit;
     private int gold;
     private boolean lose;
-    public boolean samuraiMode = false;
+    private boolean samuraiMode = false;
+    private String[] treasureList;
 
     /**
      * The base constructor of a Hunter assigns the name to the hunter and an empty kit.
@@ -23,6 +24,7 @@ public class Hunter {
         kit = new String[8]; // only 8 possible items can be stored in kit
         gold = startingGold;
         lose = false;
+        treasureList = new String[3];
     }
 
     //added overloaded constructor for test mode
@@ -33,6 +35,7 @@ public class Hunter {
             this.kit = new String[]{"water", "rope", "machete", "horse", "boat", "boots"};
         }
         lose = false;
+        treasureList = new String[3];
     }
 
     //added overloaded constructor for samurai mode
@@ -45,6 +48,8 @@ public class Hunter {
             samuraiMode = true;
         }
     }
+
+
 
     //Accessors
     public boolean isLose() {
@@ -180,6 +185,14 @@ public class Hunter {
         return str;
     }
 
+    public String treasureInfo() {
+        String str = "You have ";
+        if(!treasureIsEmpty()) {
+            str += getTreasure();
+        }
+        return str;
+    }
+
     /**
      * Searches kit Array for the index of the specified value.
      *
@@ -224,4 +237,53 @@ public class Hunter {
         }
         return -1;
     }
+
+    //add logic for treasure list
+    private int emptyPositionInTreasure() {
+        for (int i = 0; i < treasureList.length; i++) {
+            if (treasureList[i] == null) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean treasureIsEmpty() {
+        for (String string : treasureList) {
+            if (string != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String getTreasure() {
+        String printableTreasure = "";
+        String space = " ";
+
+        for (String item : treasureList) {
+            if (item != null) {
+                printableTreasure += item + space;
+            }
+        }
+        return printableTreasure;
+    }
+
+    public boolean hasItemInTreasure(String item) {
+        for (String tmpItem : treasureList) {
+            if (item.equals(tmpItem)) {
+                // early return
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addTreasure(String item) {
+        if (!hasItemInTreasure(item)) {
+            int idx = emptyPositionInTreasure();
+            treasureList[idx] = item;
+        }
+    }
+
 }
