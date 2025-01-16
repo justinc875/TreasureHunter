@@ -186,9 +186,9 @@ public class Hunter {
     }
 
     public String treasureInfo() {
-        String str = "You have ";
+        String str = "Treasures Found: ";
         if(!treasureIsEmpty()) {
-            str += getTreasure();
+            str += "a " + getTreasure();
         }
         return str;
     }
