@@ -19,7 +19,7 @@ public class TreasureHunter {
     private boolean easyMode;
     private boolean testMode;
     private boolean testLose;
-    private boolean samuraiMode;
+    private boolean samurai;
     private String treasure;
     private int treasureCount;
     private boolean gameCondition;
@@ -34,7 +34,7 @@ public class TreasureHunter {
         easyMode = false;
         testMode = false;
         testLose = false;
-        samuraiMode = false;
+        samurai = false;
         gameCondition = true;
     }
 
@@ -79,7 +79,7 @@ public class TreasureHunter {
             testLose = true;
         } else if (hard.equals("s")) {
             hunter = new Hunter (name, true, 20);
-            samuraiMode = true;
+            samurai = true;
         }
     }
 
@@ -105,10 +105,9 @@ public class TreasureHunter {
         if (testLose) {
             toughness = 1;
         }
-        if (samuraiMode) {
+        if (samurai) {
             toughness = 0;
         }
-
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
         // variable; we can leave it as a local variable

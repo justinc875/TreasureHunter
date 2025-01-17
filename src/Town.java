@@ -123,6 +123,7 @@ public class Town {
             noTroubleChance = 0.33;
         }
         if (Math.random() < noTroubleChance) {
+            printMessage = "";
             int goldDiff = (int) (Math.random() * 10) + 1;
             if (hunter.getInventory().contains("sword")) {
                 printMessage += "\nThe brawler, seeing your sword, realizes he picked a losing fight and gives you his gold";

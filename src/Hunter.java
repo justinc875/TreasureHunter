@@ -33,7 +33,7 @@ public class Hunter {
         this.hunterName = hunterName;
         gold = startingGold;
         if(test) {
-            this.kit = new String[]{"water", "rope", "machete", "horse", "boat", "boots"};
+            this.kit = new String[]{"water", "rope", "machete", "horse", "boat", "boots", "shovel"};
         }
         lose = false;
         treasureList = new String[3];
