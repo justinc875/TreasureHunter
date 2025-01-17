@@ -45,6 +45,7 @@ public class Hunter {
         kit = new String[8]; // only 8 possible items can be stored in kit
         gold = startingGold;
         lose = false;
+        treasureList = new String[3];
         if (samurai) {
             samuraiMode = true;
         }

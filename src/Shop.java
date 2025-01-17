@@ -65,7 +65,7 @@ public class Shop {
                         buyItem(item);
                     }
                 }
-            } else if (cost == 0) {
+            } else if (cost < 0) {
                 System.out.println("We ain't got none of those.");
             }
         } else {
@@ -175,7 +175,7 @@ public class Shop {
                 return SWORD_COST;
             }
         } else {
-            return 0;
+            return -1;
         }
     }
 
