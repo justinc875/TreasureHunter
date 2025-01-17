@@ -186,12 +186,19 @@ public class Hunter {
     }
 
     public String treasureInfo() {
-        String str = "Treasures Found: ";
-        if(!treasureIsEmpty()) {
-            str += "a " + getTreasure();
+        if (treasureIsEmpty()) {
+            return "Treasures Found: none";
         }
-        return str;
+        String treasures = "Treasures Found: a ";
+        for (String item : treasureList) {
+            if (item != null) {
+                treasures += item + ", ";
+            }
+        }
+        treasures = treasures.substring(0, treasures.length() - 2);
+        return treasures;
     }
+
 
     /**
      * Searches kit Array for the index of the specified value.

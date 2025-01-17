@@ -15,7 +15,6 @@ public class Town {
     private boolean easyTown;
     private boolean lose;
     private String treasure;
-    //private String[] treasureList = {"crown", "dust", "gem", "trophy"};
     private boolean playerDug;
 
     /**

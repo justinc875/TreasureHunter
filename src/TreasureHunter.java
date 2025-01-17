@@ -190,9 +190,13 @@ public class TreasureHunter {
             if(treasureCount >= 1) {
                 System.out.println("You've already searched this town");
             } else {
-                System.out.println("You found a " + treasure);
-                hunter.addTreasure(treasure);
-                System.out.println(hunter.treasureInfo());
+                if (treasure.equals("dust")) {
+                    System.out.println("You found dust... better luck next time!");
+                } else {
+                    System.out.println("You found a " + treasure);
+                    hunter.addTreasure(treasure);
+                    System.out.println(hunter.treasureInfo());
+                }
                 treasureCount++;
             }
         } else if (choice.equals("d")) {
