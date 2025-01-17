@@ -151,6 +151,11 @@ public class TreasureHunter {
         while (!choice.equals("x") && !currentTown.getLose() && gameCondition) {
 
             System.out.println();
+            if (currentTown.getBrawl()) {
+                System.out.println("You won your previous brawl");
+            } else if (!currentTown.getBrawl()) {
+                System.out.println("You lost your previous brawl or you haven't gotten into a brawl yet");
+            }
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
             System.out.println(hunter.infoString());

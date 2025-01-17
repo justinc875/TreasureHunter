@@ -16,6 +16,7 @@ public class Town {
     private boolean lose;
     private String treasure;
     private boolean playerDug;
+    public boolean brawl;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -43,6 +44,8 @@ public class Town {
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
     }
+
+    public boolean getBrawl() { return brawl; }
 
     public Terrain getTerrain() {
         return terrain;
@@ -134,6 +137,7 @@ public class Town {
                 if (Math.random() > noTroubleChance) {
                     printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
                     printMessage += "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
+                    brawl = true;
                     hunter.changeGold(goldDiff);
                     if(hunter.isLose()) {
                         lose = true;
@@ -142,6 +146,7 @@ public class Town {
                 else {
                     printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
                     printMessage += "\nYou lost the brawl and pay " + Colors.YELLOW + goldDiff + Colors.RESET + " gold.";
+                    brawl = false;
                     hunter.changeGold(-goldDiff);
                     if(hunter.isLose()) {
                         lose = true;
