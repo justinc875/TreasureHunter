@@ -12,6 +12,7 @@ public class Hunter {
     private boolean lose;
     private boolean samuraiMode = false;
     private String[] treasureList;
+    private boolean win;
 
     /**
      * The base constructor of a Hunter assigns the name to the hunter and an empty kit.
@@ -293,4 +294,17 @@ public class Hunter {
         }
     }
 
+//check for the win condition
+    public boolean checkWin() {
+        if (treasureIsEmpty()) {
+            return false;
+        }
+
+        for (String treasure : treasureList) {
+            if (treasure == null) {
+                return false; //
+            }
+        }
+        return true;
+    }
 }

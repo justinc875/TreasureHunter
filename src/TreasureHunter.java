@@ -22,6 +22,7 @@ public class TreasureHunter {
     private boolean samuraiMode;
     private String treasure;
     private int treasureCount;
+    private boolean gameCondition;
     /**
      * Constructs the Treasure Hunter game.
      */
@@ -34,6 +35,7 @@ public class TreasureHunter {
         testMode = false;
         testLose = false;
         samuraiMode = false;
+        gameCondition = true;
     }
 
     /**
@@ -147,7 +149,8 @@ public class TreasureHunter {
      */
     private void showMenu() {
         String choice = "";
-        while (!choice.equals("x") && !currentTown.getLose()) {
+        while (!choice.equals("x") && !currentTown.getLose() && gameCondition) {
+
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -196,6 +199,10 @@ public class TreasureHunter {
                     System.out.println("You found a " + treasure);
                     hunter.addTreasure(treasure);
                     System.out.println(hunter.treasureInfo());
+                    if (hunter.checkWin()) {
+                        System.out.println("Congratulations, you have found the last of the three treasures, you win!");
+                        gameCondition = false;
+                    }
                 }
                 treasureCount++;
             }
