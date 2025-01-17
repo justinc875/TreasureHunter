@@ -189,10 +189,10 @@ public class Hunter {
         if (treasureIsEmpty()) {
             return "Treasures Found: none";
         }
-        String treasures = "Treasures Found: a ";
+        String treasures = "Treasures Found: ";
         for (String item : treasureList) {
             if (item != null) {
-                treasures += item + ", ";
+                treasures += "a " + item + ", ";
             }
         }
         treasures = treasures.substring(0, treasures.length() - 2);
