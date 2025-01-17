@@ -212,7 +212,4 @@ public class Town {
         }
     }
 
-    public void searchTreasure() {
-        System.out.println("You found a");
-    }
 }

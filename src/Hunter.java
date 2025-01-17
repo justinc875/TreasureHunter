@@ -193,7 +193,7 @@ public class Hunter {
         String treasures = "Treasures Found: ";
         for (String item : treasureList) {
             if (item != null) {
-                treasures += "a " + item + ", ";
+                treasures += "a " + Colors.YELLOW + item + Colors.RESET + ", ";
             }
         }
         treasures = treasures.substring(0, treasures.length() - 2);
